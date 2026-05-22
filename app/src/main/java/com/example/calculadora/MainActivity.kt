@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calculadora.components.ButtonCalculadora
+import com.example.calculadora.components.Teclado
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,71 +47,7 @@ fun Calculadora(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        ){
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        ){
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        ){
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        ){
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        ){
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-            Spacer(modifier = Modifier.width(6.dp))
-            ButtonCalculadora {}
-        }
-
+        Teclado()
         Spacer(modifier = Modifier.height(16.dp))
     }
 
