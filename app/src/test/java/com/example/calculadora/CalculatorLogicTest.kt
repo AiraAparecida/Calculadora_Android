@@ -4,12 +4,13 @@ import org.junit.Test
 import org.junit.Assert
 
 class CalculatorLogicTest {
+    private val calculatorLogic = CalculatorLogic()
+
     @Test
     fun adicao(){
         val a = 2.0
         val b = 3.0
         val resultado = 5.0
-        val calculatorLogic = CalculatorLogic()
         assertEquals(resultado, calculatorLogic.adicao(a, b), 0.0)
     }
 
@@ -18,8 +19,31 @@ class CalculatorLogicTest {
         val a = 5.0
         val b = 3.0
         val resultado = 2.0
-        val calculatorLogic = CalculatorLogic()
         assertEquals(resultado, calculatorLogic.subtracao(a, b), 0.0)
+    }
+
+    @Test
+    fun multiplicacao(){
+        val a = 2.0
+        val b = 3.0
+        val resultado = 6.0
+        assertEquals(resultado, calculatorLogic.multiplicacao(a, b), 0.0)
+    }
+
+    @Test
+    fun divisao(){
+        val a = 6.0
+        val b = 3.0
+        val resultado = 2.0
+        assertEquals(resultado, calculatorLogic.divisao(a, b), 0.0)
+    }
+
+    @Test
+    fun porcentagem(){
+        val a = 50.0
+        val b = 20.0
+        val resultado = 0.7
+        assertEquals(resultado, calculatorLogic.porcentagem(a, b), 0.0)
     }
 
 //    private val calculatorLogic = CalculatorLogic()
