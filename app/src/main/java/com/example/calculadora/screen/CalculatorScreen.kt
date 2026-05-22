@@ -19,10 +19,5 @@ fun HomeScreen() {
     ) {
         Text("Tela Inicial")
 
-//        ButtonCalculadora(
-//            onClick = {
-//                // Lógica para realizar a soma
-//            }
-//        )
     }
 }
