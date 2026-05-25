@@ -1,7 +1,6 @@
 package com.example.calculadora
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import org.junit.Assert
 
 class CalculatorLogicTest {
     private val calculatorLogic = CalculatorLogic()
