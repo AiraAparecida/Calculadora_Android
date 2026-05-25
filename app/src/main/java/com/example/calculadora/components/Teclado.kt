@@ -67,11 +67,11 @@ fun Teclado() {
         modifier = Modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
     ){
-        ButtonCalculadora(label = "1", onClick = {})
+        ButtonCalculadora(label = "-", onClick = {})
         Spacer(modifier = Modifier.width(6.dp))
-        ButtonCalculadora(label = "1", onClick = {})
+        ButtonCalculadora(label = "0", onClick = {})
         Spacer(modifier = Modifier.width(6.dp))
-        ButtonCalculadora(label = "1", onClick = {})
+        ButtonCalculadora(label = ",", onClick = {})
         Spacer(modifier = Modifier.width(6.dp))
         ButtonCalculadora(label = "=", onClick = {})
     }
