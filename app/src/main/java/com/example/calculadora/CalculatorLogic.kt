@@ -26,6 +26,6 @@ class CalculatorLogic {
 
     //Porcentagem
     fun porcentagem(a: Double, b: Double): Double{
-        rreturn a * (b / 100.0)
+        return a * (b / 100.0)
     }
 }
