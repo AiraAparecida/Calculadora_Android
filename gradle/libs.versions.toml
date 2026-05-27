@@ -14,6 +14,7 @@ roborazzi = "1.59.0"
 roborazziCompose = "x.y.z"
 roborazziVersion = "1.59.0"
 uiTestJunit4Android = "1.11.2"
+compose = "1.12.0-alpha03"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +37,7 @@ robolectric-v413 = { module = "org.robolectric:robolectric", version.ref = "robo
 roborazzi = { module = "com.github.takahirom:roborazzi", version.ref = "roborazzi" }
 roborazzi-compose = { module = "com.github.takahirom:roborazzi-compose", version.ref = "roborazziCompose" }
 androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

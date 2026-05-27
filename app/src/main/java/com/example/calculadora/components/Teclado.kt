@@ -1,15 +1,23 @@
 package com.example.calculadora.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalGridApi
+import androidx.compose.foundation.layout.Grid
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+@OptIn(ExperimentalGridApi::class)
 @Composable
 fun Teclado(
     onKeyClick: (String) -> Unit = {}
@@ -22,21 +30,68 @@ fun Teclado(
         listOf(",", "0", ".", "=")
     )
 
-    Column {
+    Grid(
+        config = {
+            repeat(4) {
+                column(100.dp)
+            }
+            repeat(5) {
+                row(100.dp)
+            }
+        }
+    ) {
+//        Text(
+//            text = "0",
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                //.align(Alignment.CenterHorizontally)
+//        )
+
         rows.forEach { row ->
             Row(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
                 row.forEach { key->
                     ButtonCalculadora(label = key, onClick = { onKeyClick(key) })
                     Spacer(modifier = Modifier.width(6.dp))
-//                    label ->
-//                    ButtonCalculadora(label = label, onClick = { onKeyClick(label) })
                 }
             }
         }
     }
+
+//    Column(
+//        modifier = Modifier.fillMaxSize(),
+//        verticalArrangement = Arrangement.SpaceBetween
+//    ) {
+//        Text(
+//            text = "0",
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                //.padding(8.dp)
+//                .align(Alignment.CenterHorizontally)
+//        )
+//
+//        Column{
+//            rows.forEach { row ->
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(horizontal = 8.dp, vertical = 4.dp)
+//                ) {
+//                    row.forEach { key->
+//                        ButtonCalculadora(label = key, onClick = { onKeyClick(key) })
+//                        Spacer(modifier = Modifier.width(6.dp))
+////                    label ->
+////                    ButtonCalculadora(label = label, onClick = { onKeyClick(label) })
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+
 }
 
 
