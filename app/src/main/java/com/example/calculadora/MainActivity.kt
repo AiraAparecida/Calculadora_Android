@@ -21,19 +21,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calculadora.components.ButtonCalculadora
 import com.example.calculadora.components.Teclado
+import com.example.compose.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Surface(
-                color = Color(0xFFFEFFCF),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Calculadora(
-                    modifier = Modifier.padding(10.dp).fillMaxWidth()
-                )
+            AppTheme {
+                Surface(
+                    color = Color(0xFFFEFFCF),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Calculadora(
+                        modifier = Modifier.padding(10.dp).fillMaxWidth()
+                    )
+                }
             }
         }
     }

@@ -4,12 +4,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.compose.AppTheme
 
 @Composable
 fun ButtonCalculadora(
@@ -21,10 +23,11 @@ fun ButtonCalculadora(
         modifier = Modifier
             .width(90.dp)
             .height(90.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.White,
+        colors =
+            ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
             contentColor = Color.Black,
-disabledContainerColor     = Color.LightGray,  )
+            disabledContainerColor     = Color.LightGray,  )
     ) {
         Text(text = label)
     }
@@ -36,7 +39,10 @@ disabledContainerColor     = Color.LightGray,  )
 )
 @Composable
 fun ButtonCalculadoraPreview(){
-    ButtonCalculadora(
-     onClick = {}
-    )
+    AppTheme {
+            ButtonCalculadora(
+                label = "1",
+                onClick = {}
+            )
+    }
 }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -14,13 +15,14 @@ import androidx.compose.ui.unit.dp
 fun Teclado(
     onKeyClick: (String) -> Unit = {}
 ) {
-    val rows = listOf(
+    val rows = remember { listOf(
         listOf("⌫", "C", "%", "÷"),
         listOf("7", "8", "9", "x"),
         listOf("4", "5", "6", "-"),
         listOf("1", "2", "3", "+"),
         listOf(",", "0", ".", "=")
     )
+    }
 
     Column {
         rows.forEach { row ->
