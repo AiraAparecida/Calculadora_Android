@@ -1,19 +1,30 @@
 package com.example.calculadora.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.calculadora.CalculatorLogic
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun Teclado(
-    onKeyClick: (String) -> Unit = {}
-) {
+fun Teclado() {
     val rows = listOf(
         listOf("⌫", "C", "%", "÷"),
         listOf("7", "8", "9", "x"),
@@ -21,95 +32,61 @@ fun Teclado(
         listOf("1", "2", "3", "+"),
         listOf(",", "0", ".", "=")
     )
-
-    Column {
-        rows.forEach { row ->
-            Row(
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        var number by remember { mutableStateOf("10") }
+        if (number.isEmpty()) {
+            Text(
+                text = "Calculadora $number",
+                textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-            ) {
-                row.forEach { key->
-                    ButtonCalculadora(label = key, onClick = { onKeyClick(key) })
-                    Spacer(modifier = Modifier.width(6.dp))
-//                    label ->
-//                    ButtonCalculadora(label = label, onClick = { onKeyClick(label) })
+                    .fillMaxWidth(),
+                style = MaterialTheme.typography.titleLarge
+            )
+        }
+        OutlinedTextField(
+            value = number,
+            onValueChange = { number = it},
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 8.dp)
+                .align(Alignment.End),
+            textStyle = MaterialTheme.typography.displayMedium,
+        )
+
+        Column {
+            rows.forEach { row ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
+                ) {
+                    row.forEach { key ->
+                        ButtonCalculadora(
+                            label = key,
+                            onClick = {
+                                //number = number + key
+                                if(key == "C"){
+                                    number = ""
+                                }else if(key == "⌫"){
+                                    number = number.dropLast(1)
+                                }
+                            })
+                    }
                 }
             }
         }
     }
+
+
 }
 
-
-
-
-
-//    Row(
-//        modifier = Modifier
-//            .padding(horizontal = 8.dp, vertical = 4.dp)
-//    ){
-//        ButtonCalculadora(label = "⌫", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "C", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "%", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "÷", onClick = {})
-//    }
-//
-//    Row(
-//        modifier = Modifier
-//            .padding(horizontal = 8.dp, vertical = 4.dp)
-//    ){
-//        ButtonCalculadora(label = "7", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "8", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "9", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "x", onClick = {})
-//    }
-//
-//    Row(
-//        modifier = Modifier
-//            .padding(horizontal = 8.dp, vertical = 4.dp)
-//    ){
-//        ButtonCalculadora(label = "4", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "5", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "6", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "-", onClick = {})
-//    }
-//
-//    Row(
-//        modifier = Modifier
-//            .padding(horizontal = 8.dp, vertical = 4.dp)
-//    ){
-//        ButtonCalculadora(label = "1", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "2", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "3", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "+", onClick = {})
-//    }
-//
-//    Row(
-//        modifier = Modifier
-//            .padding(horizontal = 8.dp, vertical = 4.dp)
-//    ){
-//        ButtonCalculadora(label = "-", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "0", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = ",", onClick = {})
-//        Spacer(modifier = Modifier.width(6.dp))
-//        ButtonCalculadora(label = "=", onClick = {})
-//    }
-
-
-@Preview
+@Preview(
+    showBackground = true
+)
 @Composable
 fun TecladoPreview() {
     Teclado()

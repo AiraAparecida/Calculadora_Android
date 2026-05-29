@@ -1,20 +1,31 @@
 package com.example.calculadora.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.calculadora.components.Teclado
 
 @Composable
 fun CalculatorScreen() {
-    Column(
+    Scaffold(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text("Tela Inicial")
+    ) { paint ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paint)
+        ) {
+            Teclado()
+        }
     }
+}
+
+@Preview
+@Composable
+fun CalculatorScreenPreview() {
+    CalculatorScreen()
 }
