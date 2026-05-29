@@ -24,9 +24,7 @@ import com.example.calculadora.CalculatorLogic
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun Teclado(
-    onKeyClick: (String) -> Unit = {}
-) {
+fun Teclado() {
     val rows = listOf(
         listOf("⌫", "C", "%", "÷"),
         listOf("7", "8", "9", "x"),
@@ -34,13 +32,11 @@ fun Teclado(
         listOf("1", "2", "3", "+"),
         listOf(",", "0", ".", "=")
     )
-
-
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        var number by remember { mutableStateOf("") }
+        var number by remember { mutableStateOf("10") }
         if (number.isEmpty()) {
             Text(
                 text = "Calculadora $number",
@@ -72,36 +68,13 @@ fun Teclado(
                         ButtonCalculadora(
                             label = key,
                             onClick = {
-                                onKeyClick(key)
+                                //number = number + key
+                                if(key == "C"){
+                                    number = ""
+                                }else if(key == "⌫"){
+                                    number = number.dropLast(1)
+                                }
                             })
-                        when (key) {
-                            "⌫" -> { /*Lógica para borrar o último dígito}*/
-                            }
-
-                            "C" -> { /*Lógica para limpiar*/
-                            }
-
-                            "%" -> {/*Lógica para calcular*/
-                            }
-
-                            "÷" -> {/*Lógica para calcular*/
-                            }
-
-                            "x" -> {/*Lógica para calcular*/
-                            }
-
-                            "-" -> {/*Lógica para calcular*/
-                            }
-
-                            "+" -> { ButtonCalculadora(label = key, onClick = { CalculatorLogic().adicao(a = 0.0, b = 0.0)}) /*Lógica para calcular*/}
-
-                            "=" -> {/*Lógica para calcular*/
-                            }
-                            //"1" -> { ButtonCalculadora(label = key, onClick = { onKeyClick(key) }) }
-                        }
-                        //"⌫" -> ButtonCalculadora(label = key, onClick = { onKeyClick(key) })
-                        //label ->
-                        //ButtonCalculadora(label = label, onClick = { onKeyClick(label) })
                     }
                 }
             }
