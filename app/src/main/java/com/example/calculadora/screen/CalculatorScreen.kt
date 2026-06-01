@@ -7,7 +7,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.calculadora.components.Teclado
+import com.example.calculadora.components.Keyboard
 
 @Composable
 fun CalculatorScreen() {
@@ -19,7 +19,7 @@ fun CalculatorScreen() {
                 .fillMaxSize()
                 .padding(paint)
         ) {
-            Teclado()
+            Keyboard()
         }
     }
 }

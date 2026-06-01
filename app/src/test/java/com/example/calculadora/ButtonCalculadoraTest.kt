@@ -2,7 +2,7 @@ package com.example.calculadora
 
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onRoot
-import com.example.calculadora.components.ButtonCalculadora
+import com.example.calculadora.components.CalculatorButton
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -19,7 +19,7 @@ class ButtonCalculadoraTest{
     @Test
     fun testButtonCalculadora(){
         composeRule.setContent {
-            ButtonCalculadora(
+            CalculatorButton(
                 label = "1",
                 onClick = { /* Ação de clique */ }
             )
