@@ -18,11 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.calculadora.calcular
+import com.example.calculadora.CalculatorParser
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun Teclado() {
+fun Keyboard() {
     var number by remember { mutableStateOf("") }
 
     //val operadores = listOf("+", "-", "x", "÷", "%")
@@ -58,15 +58,20 @@ fun Teclado() {
                     horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally)
                 ) {
                     row.forEach { key ->
-                        ButtonCalculadora(
+                        CalculatorButton(
                             label = key,
                             onClick = {
-                                when(key){
+                                when (key) {
                                     "C" -> number = ""
                                     "⌫" -> number = number.dropLast(1)
-                                    "=" -> TODO()
+                                    "=" -> {
+                                        number = CalculatorParser.calculator(number)
+                                    }
+
+                                    else -> {
+                                        number = number + key
+                                    }
                                 }
-                                number = number + key
 
                             })
                     }
@@ -82,6 +87,6 @@ fun Teclado() {
     showBackground = true
 )
 @Composable
-fun TecladoPreview() {
-    Teclado()
+fun KeyboardPreview() {
+    Keyboard()
 }

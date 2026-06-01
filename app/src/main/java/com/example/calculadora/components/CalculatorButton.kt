@@ -14,12 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
-import androidx.compose.ui.unit.sp
 
 @Composable
-fun ButtonCalculadora(
+fun CalculatorButton(
     onClick: () -> Unit,
-    label: String = ""
+    label: String = "",
+
 ) {
     AppTheme(dynamicColor = false) {
         Button(
@@ -45,9 +45,9 @@ fun ButtonCalculadora(
     showBackground = true
 )
 @Composable
-fun ButtonCalculadoraPreview() {
+fun CalculatorButtonPreview() {
     AppTheme {
-        ButtonCalculadora(
+        CalculatorButton(
             label = "7",
             onClick = {}
         )
@@ -62,9 +62,9 @@ fun ButtonCalculadoraPreview() {
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-fun ButtonCalculadoraPreviewDark() {
+fun CalculatorButtonPreviewDark() {
     AppTheme {
-        ButtonCalculadora(
+        CalculatorButton(
             label = "7",
             onClick = {}
         )

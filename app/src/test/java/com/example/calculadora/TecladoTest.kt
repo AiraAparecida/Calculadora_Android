@@ -1,7 +1,7 @@
 package com.example.calculadora
 
 import androidx.compose.ui.test.junit4.v2.createComposeRule
-import com.example.calculadora.components.Teclado
+import com.example.calculadora.components.Keyboard
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -17,7 +17,7 @@ class TecladoTest {
     @Test
     fun testTeclado() {
         composeRule.setContent {
-            Teclado(
+            Keyboard(
                 onKeyClick = { /* Ação de clique */ }
             )
         }
