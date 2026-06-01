@@ -18,11 +18,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.calculadora.calcular
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Teclado() {
     var number by remember { mutableStateOf("") }
+
+    //val operadores = listOf("+", "-", "x", "÷", "%")
 
     val rows = listOf(
         listOf("⌫", "C", "%", "÷"),
@@ -58,44 +61,13 @@ fun Teclado() {
                         ButtonCalculadora(
                             label = key,
                             onClick = {
-                                if (key == "C") {
-                                    number = ""
-                                } else if (key == "⌫") {
-                                    number = number.dropLast(1)
-                                } else if (key == "=") {
-//                                    val result: Double
-//                                    if (number.contains("+")) {
-//                                        val parts = number.split("+")
-//                                        val a = parts[0].toDouble()
-//                                        val b = parts[1].toDouble()
-//                                        result = CalculatorLogic().adicao(a, b)
-//                                    } else if (key == "-") {
-//                                        val parts = number.split("-")
-//                                        val a = parts[0].toDouble()
-//                                        val b = parts[1].toDouble()
-//                                        result = CalculatorLogic().subtracao(a, b)
-//                                    } else if (key == "x") {
-//                                        val parts = number.split("x")
-//                                        val a = parts[0].toDouble()
-//                                        val b = parts[1].toDouble()
-//                                        result = CalculatorLogic().multiplicacao(a, b)
-//                                    } else if (key == "÷") {
-//                                        val parts = number.split("÷")
-//                                        val a = parts[0].toDouble()
-//                                        val b = parts[1].toDouble()
-//                                        result = CalculatorLogic().divisao(a, b)
-//                                    } else if (key == "%") {
-//                                        val parts = number.split("%")
-//                                        val a = parts[0].toDouble()
-//                                        val b = parts[1].toDouble()
-//                                        result = CalculatorLogic().porcentagem(a, b)
-//                                    }else{
-//                                        result = 0.0
-//                                    }
-//                                    number = result.toString()
-                                } else {
-                                    number = number + key
+                                when(key){
+                                    "C" -> number = ""
+                                    "⌫" -> number = number.dropLast(1)
+                                    "=" -> TODO()
                                 }
+                                number = number + key
+
                             })
                     }
                 }
