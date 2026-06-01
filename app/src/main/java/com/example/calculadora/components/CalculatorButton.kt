@@ -33,7 +33,7 @@ fun CalculatorButton(
         ) {
             Text(
                 text = label,
-                fontSize = MaterialTheme.typography.headlineMedium.fontSize
+                fontSize = MaterialTheme.typography.headlineLarge.fontSize
             )
         }
     }
