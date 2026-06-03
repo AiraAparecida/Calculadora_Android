@@ -21,13 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.calculadora.CalculatorParser
+import com.example.calculadora.CalculatorParser.addOperation
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Keyboard() {
     var number by remember { mutableStateOf("") }
 
-    //val operadores = listOf("+", "-", "x", "÷", "%")
+    val operates = listOf("+", "-", "x", "÷", "%")
 
     val rows = listOf(
         listOf("⌫", "C", "%", "÷"),
@@ -73,7 +74,11 @@ fun Keyboard() {
                                     }
 
                                     else -> {
-                                        number = number + key
+                                        if (addOperation(number = "", key = "", operates)) {
+
+                                        } else {
+                                            number = number + key
+                                        }
                                     }
                                 }
 
