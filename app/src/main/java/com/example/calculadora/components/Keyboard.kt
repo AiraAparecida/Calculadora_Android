@@ -35,7 +35,7 @@ fun Keyboard() {
         listOf("7", "8", "9", "x"),
         listOf("4", "5", "6", "-"),
         listOf("1", "2", "3", "+"),
-        listOf(",", "0", ".", "=")
+        listOf("00", "0", ".", "=")
     )
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -74,9 +74,7 @@ fun Keyboard() {
                                     }
 
                                     else -> {
-                                        if (addOperation(number = "", key = "", operates)) {
-
-                                        } else {
+                                        if (addOperation(number, key, operates)) {
                                             number = number + key
                                         }
                                     }

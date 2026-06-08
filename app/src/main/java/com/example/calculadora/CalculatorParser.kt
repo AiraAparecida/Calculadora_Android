@@ -54,7 +54,6 @@ object CalculatorParser {
         }
     }
 
-    //tramento de erro
     fun addOperation(
         number: String,
         key: String,
