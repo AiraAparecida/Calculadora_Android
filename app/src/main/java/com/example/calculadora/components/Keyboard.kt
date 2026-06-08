@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,19 +17,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.calculadora.CalculatorParser
-import com.example.calculadora.CalculatorParser.addOperation
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Keyboard() {
-    var number by remember { mutableStateOf("") }
-
-    val operates = listOf("+", "-", "x", "÷", "%")
+    var cifra by remember { mutableStateOf("") }
+    val result = CalculatorParser.calculator(cifra)
 
     val rows = listOf(
         listOf("⌫", "C", "%", "÷"),
@@ -43,15 +42,21 @@ fun Keyboard() {
     ) {
 
         BasicTextField(
-            value = number,
-            onValueChange = { number = it },
+            value = cifra,
+            onValueChange = { cifra = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 8.dp)
+                .align(Alignment.End),
+            textStyle = MaterialTheme.typography.displayMedium.copy(textAlign = TextAlign.End),
+        )
+        Text(
+            text = result,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 18.dp, vertical = 8.dp),
-            textStyle = MaterialTheme.typography.displayMedium.copy(
-                fontSize = 60.sp,
-                textAlign = TextAlign.End
-            )
+            style = MaterialTheme.typography.displaySmall.copy(textAlign = TextAlign.End),
+            color = Color.Black.copy(alpha = 0.5f)
         )
 
         Column {
@@ -67,16 +72,14 @@ fun Keyboard() {
                             label = key,
                             onClick = {
                                 when (key) {
-                                    "C" -> number = ""
-                                    "⌫" -> number = number.dropLast(1)
+                                    "C" -> cifra = ""
+                                    "⌫" -> cifra = cifra.dropLast(1)
                                     "=" -> {
-                                        number = CalculatorParser.calculator(number)
+                                        cifra = CalculatorParser.calculator(cifra)
                                     }
 
                                     else -> {
-                                        if (addOperation(number, key, operates)) {
-                                            number = number + key
-                                        }
+                                        cifra = CalculatorParser.replaceOperation(cifra, key)
                                     }
                                 }
 
@@ -91,7 +94,7 @@ fun Keyboard() {
 }
 
 @Preview(
-    showBackground = true,
+    showBackground = true
 )
 @Composable
 fun KeyboardPreview() {
