@@ -2,6 +2,7 @@ package com.example.calculadora
 
 object CalculatorParser {
     fun calculator(express: String): String {
+
         return try {
             val result: Double
             when {
@@ -52,4 +53,19 @@ object CalculatorParser {
             "Error"
         }
     }
+
+    fun addOperation(
+        number: String,
+        key: String,
+        operates: List<String>
+    ): Boolean {
+        if (!operates.contains(key)) return true
+
+        if (number.isEmpty()) return false
+
+        val ultimo = number.last().toString()
+
+        return !operates.contains(ultimo)
+    }
+
 }
