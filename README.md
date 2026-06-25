@@ -33,6 +33,10 @@ app/src/main/java/com/example/calculadora/
     ├── Theme.kt             # Configuração do tema
     └── Type.kt              # Tipografia
 ```
+### Referencia de Designer:
+<img src="https://help.apple.com/assets/69F8EBBDF3B89A4F6E0C704C/69F8EBC43862495245036393/pt_BR/27a2bdf3f0e6220f979e1724e819da5e.png" width="200">
+
+link do material3: https://developer.android.com/develop/ui/compose/designsystems/material3?hl=pt-br#typography
 
 ## Tecnologias Utilizadas
 
@@ -42,7 +46,7 @@ app/src/main/java/com/example/calculadora/
 
 ## Autor
 
-[Seu Nome]
+Aira Aparecida
 
 ## Licença
 
