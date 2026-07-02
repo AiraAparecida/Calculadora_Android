@@ -79,7 +79,10 @@ fun Keyboard() {
                                     }
 
                                     else -> {
-                                        cifra = CalculatorParser.replaceOperation(cifra, key)
+                                        val rows = listOf(listOf("+", "-", "x", "÷", "%"))
+                                        if (CalculatorParser.addOperation(cifra, key, rows)) {
+                                            cifra = CalculatorParser.replaceOperation(cifra, key)
+                                        }
                                     }
                                 }
 

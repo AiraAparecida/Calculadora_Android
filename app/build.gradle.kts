@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
     id("io.github.takahirom.roborazzi")
 }
 
@@ -46,44 +45,40 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
-
-            all {
-                it.systemProperty(
-                    "robolectric.pixelCopyRenderMode",
-                    "hardware"
-                )
-            }
         }
     }
 }
 
+roborazzi {
+    outputDir.set(file("src/test/screenshots"))
+}
+
 dependencies {
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.lifecycle.runtime.ktx)
+        implementation(libs.androidx.activity.compose)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+        implementation(platform(libs.androidx.compose.bom))
+        implementation(libs.androidx.ui)
+        implementation(libs.androidx.ui.graphics)
+        implementation(libs.androidx.ui.tooling.preview)
+        implementation(libs.androidx.material3)
+        implementation(libs.androidx.ui.test.junit4.android)
 
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.ui.test.junit4.android)
+        implementation(libs.androidx.compose.foundation.layout)
+        implementation(libs.androidx.constraintlayout)
 
-    implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.androidx.constraintlayout)
+        testImplementation(libs.junit)
+        testImplementation(kotlin("test"))
+        testImplementation("org.robolectric:robolectric:4.13")
 
-    testImplementation(libs.junit)
-    testImplementation(kotlin("test"))
+        testImplementation(libs.roborazzi)
+        testImplementation(libs.roborazzi.compose)
+        testImplementation(libs.roborazzi.rule)
 
-    testImplementation(libs.robolectric.v413)
+        androidTestImplementation(platform(libs.androidx.compose.bom))
+        androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 
-    testImplementation(libs.github.roborazzi)
-    testImplementation(libs.github.roborazzi.compose)
-
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+        debugImplementation(libs.androidx.ui.tooling)
+        debugImplementation(libs.androidx.ui.test.manifest)
 }
