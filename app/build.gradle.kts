@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
     id("io.github.takahirom.roborazzi")
 }
 
@@ -55,35 +54,41 @@ android {
             }
         }
     }
+
 }
 
 dependencies {
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.lifecycle.runtime.ktx)
+        implementation(libs.androidx.activity.compose)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
+        implementation(platform(libs.androidx.compose.bom))
+        implementation(libs.androidx.ui)
+        implementation(libs.androidx.ui.graphics)
+        implementation(libs.androidx.ui.tooling.preview)
+        implementation(libs.androidx.material3)
+        implementation(libs.androidx.ui.test.junit4.android)
 
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.ui.test.junit4.android)
+        implementation(libs.androidx.compose.foundation.layout)
+        implementation(libs.androidx.constraintlayout)
 
-    implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.androidx.constraintlayout)
+        // tests
+        testImplementation(libs.junit)
+        testImplementation(kotlin("test"))
 
-    testImplementation(libs.junit)
-    testImplementation(kotlin("test"))
+        // Robolectric
+        testImplementation("org.robolectric:robolectric:4.13")
 
-    testImplementation(libs.robolectric.v413)
+        // Roborazzi (mesma versão alpha-3 para todos)
+        testImplementation("io.github.takahirom.roborazzi:roborazzi:1.8.0-alpha-3")
+        testImplementation("io.github.takahirom.roborazzi:roborazzi-compose:1.8.0-alpha-3")
 
-    testImplementation(libs.github.roborazzi)
-    testImplementation(libs.github.roborazzi.compose)
+        // Roborazzi JUnit Rule (contém RoborazziRule)
+        testImplementation("io.github.takahirom.roborazzi:roborazzi-junit-rule:1.8.0-alpha-3")
 
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
+        androidTestImplementation(platform(libs.androidx.compose.bom))
+        androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.11.2")
 
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+        debugImplementation(libs.androidx.ui.tooling)
+        debugImplementation(libs.androidx.ui.test.manifest)
 }
