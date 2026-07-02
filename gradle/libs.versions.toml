@@ -6,9 +6,7 @@ junitExt = "1.3.0"
 espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.10.0"
 robolectric = "4.13"
-roborazzi = "1.8.0"
-roborazziCompose = "1.59.0"
-roborazziVersion = "1.59.0"
+roborazzi = "1.59.0"
 uiTestJunit4Android = "1.11.2"
 compose = "1.8.2"
 composeBom = "2025.02.00"
@@ -20,14 +18,11 @@ roborazziRule = "1.8.0-alpha-3"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 
-# Roborazzi (Maven Central, group = io.github.takahirom.roborazzi)
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
-roborazzi-compose-v1590 = { module = "io.github.takahirom.roborazzi:roborazzi-compose", version.ref = "roborazziCompose" }
-roborazzi-junit4 = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit4", version.ref = "roborazzi" }
-roborazzi-junit-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazziRule" }
-roborazzi-v1590 = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = "roborazziVersion" }
-robolectric-v413 = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazzi" }
+
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitExt" }
@@ -44,7 +39,6 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
 
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "compose" }
 
@@ -52,3 +46,4 @@ androidx-compose-foundation-layout = { group = "androidx.compose.foundation", na
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }

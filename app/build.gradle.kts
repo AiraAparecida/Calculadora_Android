@@ -45,16 +45,13 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
-
-            all {
-                it.systemProperty(
-                    "robolectric.pixelCopyRenderMode",
-                    "hardware"
-                )
-            }
         }
     }
 
+}
+
+roborazzi {
+    outputDir.set(file("src/test/screenshots"))
 }
 
 dependencies {
@@ -72,22 +69,16 @@ dependencies {
         implementation(libs.androidx.compose.foundation.layout)
         implementation(libs.androidx.constraintlayout)
 
-        // tests
         testImplementation(libs.junit)
         testImplementation(kotlin("test"))
-
-        // Robolectric
         testImplementation("org.robolectric:robolectric:4.13")
 
-        // Roborazzi (mesma versão alpha-3 para todos)
-        testImplementation("io.github.takahirom.roborazzi:roborazzi:1.8.0-alpha-3")
-        testImplementation("io.github.takahirom.roborazzi:roborazzi-compose:1.8.0-alpha-3")
-
-        // Roborazzi JUnit Rule (contém RoborazziRule)
-        testImplementation("io.github.takahirom.roborazzi:roborazzi-junit-rule:1.8.0-alpha-3")
+        testImplementation(libs.roborazzi)
+        testImplementation(libs.roborazzi.compose)
+        testImplementation(libs.roborazzi.rule)
 
         androidTestImplementation(platform(libs.androidx.compose.bom))
-        androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.11.2")
+        androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 
         debugImplementation(libs.androidx.ui.tooling)
         debugImplementation(libs.androidx.ui.test.manifest)
