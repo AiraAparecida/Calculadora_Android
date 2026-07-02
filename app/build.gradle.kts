@@ -47,6 +47,7 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
 }
 
 roborazzi {
