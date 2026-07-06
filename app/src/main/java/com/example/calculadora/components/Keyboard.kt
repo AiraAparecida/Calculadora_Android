@@ -95,14 +95,27 @@ fun Keyboard() {
                                     }
 
                                     else -> {
-                                        isCalculated = false
-                                        val rows = listOf(listOf("+", "-", "x", "÷", "%"))
-                                        if (CalculatorParser.addOperation(cifra, key, rows)) {
-                                            cifra = CalculatorParser.replaceOperation(cifra, key)
+                                        val operates = listOf("+", "-", "x", "÷", "%")
+
+                                        if (isCalculated) {
+                                            if (key in operates) {
+                                                isCalculated = false
+                                                cifra += key
+                                            } else {
+                                                isCalculated = false
+                                                cifra = key
+                                            }
+                                        } else {
+                                            val rows = listOf(operates)
+                                            if (CalculatorParser.addOperation(cifra, key, rows)) {
+                                                cifra =
+                                                    CalculatorParser.replaceOperation(cifra, key)
+                                            } else {
+                                                cifra += key
+                                            }
                                         }
                                     }
                                 }
-
                             })
                     }
                 }

@@ -23,7 +23,7 @@ object CalculatorLogic {
 
     fun formatarResultado(valor: Double): String {
         return if (valor == valor.toLong().toDouble()) {
-            "${valor.toLong()}.0"
+            valor.toLong().toString()
         } else {
             valor.toString()
         }
