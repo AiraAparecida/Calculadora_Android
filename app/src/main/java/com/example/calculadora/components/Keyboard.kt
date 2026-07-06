@@ -27,7 +27,8 @@ import com.example.calculadora.CalculatorParser
 @Composable
 fun Keyboard() {
     var cifra by remember { mutableStateOf("") }
-    val result = CalculatorParser.calculator(cifra)
+    var isCalculated by remember { mutableStateOf(false) }
+    val result = if (isCalculated) "" else CalculatorParser.calculator(cifra)
 
     val rows = listOf(
         listOf("⌫", "C", "%", "÷"),
@@ -43,21 +44,26 @@ fun Keyboard() {
 
         BasicTextField(
             value = cifra,
-            onValueChange = { cifra = it },
+            onValueChange = {
+                cifra = it
+                isCalculated = false
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 18.dp, vertical = 8.dp)
                 .align(Alignment.End),
             textStyle = MaterialTheme.typography.displayMedium.copy(textAlign = TextAlign.End),
         )
-        Text(
-            text = result,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 18.dp, vertical = 8.dp),
-            style = MaterialTheme.typography.displaySmall.copy(textAlign = TextAlign.End),
-            color = Color.Black.copy(alpha = 0.5f)
-        )
+        if (result.isNotEmpty()) {
+            Text(
+                text = result,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp, vertical = 8.dp),
+                style = MaterialTheme.typography.displaySmall.copy(textAlign = TextAlign.End),
+                color = Color.Black.copy(alpha = 0.5f)
+            )
+        }
 
         Column {
             rows.forEach { row ->
@@ -72,13 +78,24 @@ fun Keyboard() {
                             label = key,
                             onClick = {
                                 when (key) {
-                                    "C" -> cifra = ""
-                                    "⌫" -> cifra = cifra.dropLast(1)
+                                    "C" -> {
+                                        cifra = ""
+                                        isCalculated = false
+                                    }
+
+                                    "⌫" -> {
+                                        cifra = cifra.dropLast(1)
+                                        isCalculated = false
+                                    }
+
                                     "=" -> {
-                                        cifra = CalculatorParser.calculator(cifra)
+                                        val resultFinal = CalculatorParser.calculator(cifra)
+                                        cifra = resultFinal
+                                        isCalculated = true
                                     }
 
                                     else -> {
+                                        isCalculated = false
                                         val rows = listOf(listOf("+", "-", "x", "÷", "%"))
                                         if (CalculatorParser.addOperation(cifra, key, rows)) {
                                             cifra = CalculatorParser.replaceOperation(cifra, key)
