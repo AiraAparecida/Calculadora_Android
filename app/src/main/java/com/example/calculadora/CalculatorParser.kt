@@ -66,11 +66,15 @@ object CalculatorParser {
         val num1 = num1String.toDoubleOrNull() ?: return express
         val num2 = num2String.toDoubleOrNull() ?: return express
 
+        if (op == "÷" && num2 == 0.0) {
+            return "Erro: Divisão por zero"
+        }
+
         val result = when (op) {
             "+" -> CalculatorLogic.adicao(num1, num2)
             "-" -> CalculatorLogic.subtracao(num1, num2)
             "x" -> CalculatorLogic.multiplicacao(num1, num2)
-            "÷" -> if (num2 != 0.0) CalculatorLogic.divisao(num1, num2) else 0.0
+            "÷" -> CalculatorLogic.divisao(num1, num2)
             "%" -> CalculatorLogic.porcentagem(num1, num2)
             else -> 0.0
         }
