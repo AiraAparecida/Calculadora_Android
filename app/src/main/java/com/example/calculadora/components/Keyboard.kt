@@ -1,5 +1,6 @@
 package com.example.calculadora.components
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -11,6 +12,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,9 +29,29 @@ import com.example.calculadora.CalculatorParser
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun Keyboard() {
+    val context = LocalContext.current
+
     var cifra by remember { mutableStateOf("") }
     var isCalculated by remember { mutableStateOf(false) }
-    val result = if (isCalculated) "" else CalculatorParser.calculator(cifra)
+
+    var erroTrigger by remember { mutableStateOf(0) }
+
+    val rawResult: String = if (isCalculated) "" else CalculatorParser.calculator(cifra)
+
+    val result: String = if (rawResult == "Erro: Divisão por zero" || cifra.contains("÷0")) {
+        LaunchedEffect(cifra) {
+            Toast.makeText(context, "Não é possível dividir por zero.", Toast.LENGTH_SHORT).show()
+        }
+        ""
+    } else {
+        rawResult
+    }
+
+    LaunchedEffect(erroTrigger) {
+        if (erroTrigger > 0) {
+            Toast.makeText(context, "Não é possível dividir por zero.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     val rows = listOf(
         listOf("⌫", "C", "%", "÷"),
@@ -89,9 +112,18 @@ fun Keyboard() {
                                     }
 
                                     "=" -> {
-                                        val resultFinal = CalculatorParser.calculator(cifra)
-                                        cifra = resultFinal
-                                        isCalculated = true
+                                        if (cifra.contains("÷0")) {
+                                            erroTrigger++
+                                        } else {
+                                            val resultFinal = CalculatorParser.calculator(cifra)
+
+                                            if (resultFinal == "Erro: Divisão por zero") {
+                                                erroTrigger++
+                                            } else {
+                                                cifra = resultFinal
+                                                isCalculated = true
+                                            }
+                                        }
                                     }
 
                                     else -> {
