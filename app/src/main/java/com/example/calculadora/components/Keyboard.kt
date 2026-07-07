@@ -135,9 +135,28 @@ fun Keyboard() {
                                                 cifra += key
                                             } else {
                                                 isCalculated = false
-                                                cifra = key
+                                                cifra = if (key == ".") "0." else key
                                             }
                                         } else {
+                                            if (key == "."){
+                                                val lastOperatorIndex = cifra.lastIndexOfAny(operates)
+
+                                                val lastNumber = if (lastOperatorIndex != -1) {
+                                                    cifra.substring(lastOperatorIndex + 1)
+                                                } else {
+                                                    cifra
+                                                }
+
+                                                if (lastNumber.contains(".")){
+                                                    return@CalculatorButton
+                                                }
+
+                                                if (cifra.isEmpty() || cifra.last().toString() in operates){
+                                                    cifra += "0."
+                                                    return@CalculatorButton
+                                                }
+                                            }
+
                                             val rows = listOf(operates)
                                             if (CalculatorParser.addOperation(cifra, key, rows)) {
                                                 cifra =
