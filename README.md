@@ -21,17 +21,21 @@ Um aplicativo de calculadora desenvolvido em Android com Kotlin e Jetpack Compos
 
 ```
 app/src/main/java/com/example/calculadora/
-├── CalculatorLogic.kt       # Lógica matemática
-├── MainActivity.kt           # Atividade principal
 ├── components/
-│   ├── ButtonY.kt           # Componente de botão
-│   └── Teclado.kt           # Componente do teclado
+│   ├── CalculatorButton.kt     # Componente de botão
+│   └── Keyboard.kt             # Componente do teclado
 ├── screen/
-│   └── CalculatorScreen.kt  # Tela principal da calculadora
+│   └── CalculatorScreen.kt     # Tela principal da calculadora
 └── ui/theme/
-    ├── Color.kt             # Cores do tema
-    ├── Theme.kt             # Configuração do tema
-    └── Type.kt              # Tipografia
+    ├── Color.kt                # Cores do tema
+    ├── Theme.kt                # Configuração do tema
+    └── Type.kt                 # Tipografia
+├── viewmodel/
+│   └── CalculatorViewModel.kt  # Gerenciar, Preparar as Regras de Negocio
+├── CalculatorLogic.kt          # Lógica matemática
+├── CalculatorParsen.kt         # Lógica de auxilio
+├── MainActivity.kt             # Atividade principal
+
 ```
 ### Referencia de Designer:
 <img src="https://help.apple.com/assets/69F8EBBDF3B89A4F6E0C704C/69F8EBC43862495245036393/pt_BR/27a2bdf3f0e6220f979e1724e819da5e.png" width="200">
