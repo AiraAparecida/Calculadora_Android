@@ -35,6 +35,7 @@ fun Keyboard() {
     var isCalculated by remember { mutableStateOf(false) }
 
     var erroTrigger by remember { mutableStateOf(0) }
+    var mensagemErro by remember { mutableStateOf("") }
 
     val rawResult: String = if (isCalculated) "" else CalculatorParser.calculator(cifra)
 
@@ -48,8 +49,8 @@ fun Keyboard() {
     }
 
     LaunchedEffect(erroTrigger) {
-        if (erroTrigger > 0) {
-            Toast.makeText(context, "Não é possível dividir por zero.", Toast.LENGTH_SHORT).show()
+        if (erroTrigger > 0 && mensagemErro.isNotEmpty()) {
+            Toast.makeText(context, mensagemErro, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -113,11 +114,12 @@ fun Keyboard() {
 
                                     "=" -> {
                                         if (cifra.contains("÷0")) {
+                                            mensagemErro = "Não é possível dividir por zero."
                                             erroTrigger++
                                         } else {
                                             val resultFinal = CalculatorParser.calculator(cifra)
-
                                             if (resultFinal == "Erro: Divisão por zero") {
+                                                mensagemErro = "Não é possível dividir por zero."
                                                 erroTrigger++
                                             } else {
                                                 cifra = resultFinal
@@ -129,6 +131,12 @@ fun Keyboard() {
                                     else -> {
                                         val operates = listOf("+", "-", "x", "÷", "%")
 
+                                        if (cifra.isEmpty() && key in operates) {
+                                            mensagemErro = "Formato usado inválido"
+                                            erroTrigger++
+                                            return@CalculatorButton
+                                        }
+
                                         if (isCalculated) {
                                             if (key in operates) {
                                                 isCalculated = false
@@ -138,8 +146,9 @@ fun Keyboard() {
                                                 cifra = if (key == ".") "0." else key
                                             }
                                         } else {
-                                            if (key == "."){
-                                                val lastOperatorIndex = cifra.lastIndexOfAny(operates)
+                                            if (key == ".") {
+                                                val lastOperatorIndex =
+                                                    cifra.lastIndexOfAny(operates)
 
                                                 val lastNumber = if (lastOperatorIndex != -1) {
                                                     cifra.substring(lastOperatorIndex + 1)
@@ -147,11 +156,13 @@ fun Keyboard() {
                                                     cifra
                                                 }
 
-                                                if (lastNumber.contains(".")){
+                                                if (lastNumber.contains(".")) {
                                                     return@CalculatorButton
                                                 }
 
-                                                if (cifra.isEmpty() || cifra.last().toString() in operates){
+                                                if (cifra.isEmpty() || cifra.last()
+                                                        .toString() in operates
+                                                ) {
                                                     cifra += "0."
                                                     return@CalculatorButton
                                                 }
