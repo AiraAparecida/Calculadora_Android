@@ -131,6 +131,21 @@ fun Keyboard() {
                                     else -> {
                                         val operates = listOf("+", "-", "x", "÷", "%")
 
+                                        if (key !in operates && key != "="){
+                                            val lastOperationIndex = cifra.lastIndexOfAny(operates)
+                                            val lastNumber = if (lastOperationIndex != -1){
+                                                cifra.substring(lastOperationIndex + 1)
+                                            } else {
+                                                cifra
+                                            }
+
+                                            if (lastNumber.length >= 14){
+                                                mensagemErro = "Não é possivel inserir mais de 15 dígitos"
+                                                erroTrigger++
+                                                return@CalculatorButton
+                                            }
+                                        }
+
                                         if (cifra.isEmpty() && key in operates) {
                                             mensagemErro = "Formato usado inválido"
                                             erroTrigger++
