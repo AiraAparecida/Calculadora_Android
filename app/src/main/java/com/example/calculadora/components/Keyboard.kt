@@ -1,5 +1,7 @@
 package com.example.calculadora.components
 
+import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,10 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,33 +22,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.calculadora.CalculatorParser
+import com.example.calculadora.viewmodel.CalculatorViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun Keyboard() {
+fun Keyboard(viewModel: CalculatorViewModel) {
     val context = LocalContext.current
 
-    var cifra by remember { mutableStateOf("") }
-    var isCalculated by remember { mutableStateOf(false) }
-
-    var erroTrigger by remember { mutableStateOf(0) }
-    var mensagemErro by remember { mutableStateOf("") }
-
-    val rawResult: String = if (isCalculated) "" else CalculatorParser.calculator(cifra)
-
-    val result: String = if (rawResult == "Erro: Divisão por zero" || cifra.contains("÷0")) {
-        LaunchedEffect(cifra) {
-            Toast.makeText(context, "Não é possível dividir por zero.", Toast.LENGTH_SHORT).show()
-        }
-        ""
-    } else {
-        rawResult
-    }
-
-    LaunchedEffect(erroTrigger) {
-        if (erroTrigger > 0 && mensagemErro.isNotEmpty()) {
-            Toast.makeText(context, mensagemErro, Toast.LENGTH_SHORT).show()
+    LaunchedEffect(viewModel.erroTrigger) {
+        if (viewModel.erroTrigger > 0 && viewModel.mensagemErro.isNotEmpty()) {
+            Toast.makeText(context, viewModel.mensagemErro, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -67,20 +48,17 @@ fun Keyboard() {
     ) {
 
         BasicTextField(
-            value = cifra,
-            onValueChange = {
-                cifra = it
-                isCalculated = false
-            },
+            value = viewModel.cifra,
+            onValueChange = { },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 18.dp, vertical = 8.dp)
                 .align(Alignment.End),
             textStyle = MaterialTheme.typography.displayMedium.copy(textAlign = TextAlign.End),
         )
-        if (result.isNotEmpty()) {
+        if (viewModel.result.isNotEmpty()) {
             Text(
-                text = result,
+                text = viewModel.result,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 18.dp, vertical = 8.dp),
@@ -101,112 +79,28 @@ fun Keyboard() {
                         CalculatorButton(
                             label = key,
                             onClick = {
-                                when (key) {
-                                    "C" -> {
-                                        cifra = ""
-                                        isCalculated = false
-                                    }
-
-                                    "⌫" -> {
-                                        cifra = cifra.dropLast(1)
-                                        isCalculated = false
-                                    }
-
-                                    "=" -> {
-                                        if (cifra.contains("÷0")) {
-                                            mensagemErro = "Não é possível dividir por zero."
-                                            erroTrigger++
-                                        } else {
-                                            val resultFinal = CalculatorParser.calculator(cifra)
-                                            if (resultFinal == "Erro: Divisão por zero") {
-                                                mensagemErro = "Não é possível dividir por zero."
-                                                erroTrigger++
-                                            } else {
-                                                cifra = resultFinal
-                                                isCalculated = true
-                                            }
-                                        }
-                                    }
-
-                                    else -> {
-                                        val operates = listOf("+", "-", "x", "÷", "%")
-
-                                        if (key !in operates && key != "="){
-                                            val lastOperationIndex = cifra.lastIndexOfAny(operates)
-                                            val lastNumber = if (lastOperationIndex != -1){
-                                                cifra.substring(lastOperationIndex + 1)
-                                            } else {
-                                                cifra
-                                            }
-
-                                            if (lastNumber.length >= 14){
-                                                mensagemErro = "Não é possivel inserir mais de 15 dígitos"
-                                                erroTrigger++
-                                                return@CalculatorButton
-                                            }
-                                        }
-
-                                        if (cifra.isEmpty() && key in operates) {
-                                            mensagemErro = "Formato usado inválido"
-                                            erroTrigger++
-                                            return@CalculatorButton
-                                        }
-
-                                        if (isCalculated) {
-                                            if (key in operates) {
-                                                isCalculated = false
-                                                cifra += key
-                                            } else {
-                                                isCalculated = false
-                                                cifra = if (key == ".") "0." else key
-                                            }
-                                        } else {
-                                            if (key == ".") {
-                                                val lastOperatorIndex =
-                                                    cifra.lastIndexOfAny(operates)
-
-                                                val lastNumber = if (lastOperatorIndex != -1) {
-                                                    cifra.substring(lastOperatorIndex + 1)
-                                                } else {
-                                                    cifra
-                                                }
-
-                                                if (lastNumber.contains(".")) {
-                                                    return@CalculatorButton
-                                                }
-
-                                                if (cifra.isEmpty() || cifra.last()
-                                                        .toString() in operates
-                                                ) {
-                                                    cifra += "0."
-                                                    return@CalculatorButton
-                                                }
-                                            }
-
-                                            val rows = listOf(operates)
-                                            if (CalculatorParser.addOperation(cifra, key, rows)) {
-                                                cifra =
-                                                    CalculatorParser.replaceOperation(cifra, key)
-                                            } else {
-                                                cifra += key
-                                            }
-                                        }
-                                    }
-                                }
+                                viewModel.onKeyClick(key)
                             })
                     }
                 }
             }
         }
     }
+}
 
-
+@Preview(showBackground = true)
+@Composable
+fun KeyboardPreview() {
+    val previewViewModel = CalculatorViewModel()
+    Keyboard(viewModel = previewViewModel)
 }
 
 @Preview(
-    showBackground = true
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-fun KeyboardPreview() {
-    Keyboard()
+fun KeyboardPreviewDark() {
+    val previewViewModel = CalculatorViewModel()
+    Keyboard(viewModel = previewViewModel)
 }
