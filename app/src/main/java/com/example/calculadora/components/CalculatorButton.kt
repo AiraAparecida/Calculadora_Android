@@ -26,7 +26,7 @@ fun CalculatorButton(
             onClick = onClick,
             modifier = Modifier.width(90.dp).height(90.dp).padding(2.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                containerColor = MaterialTheme.colorScheme.inversePrimary,
                 contentColor = Color.Black,
                 disabledContainerColor = Color.LightGray,
             )
